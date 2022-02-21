@@ -13,10 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')  // per privatizzare i controlli
+    ->namespace('Admin')
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function() {
+    // qui metto tutte le rotte private
+    Route::get('/', 'HomeController@index')->name('home');
+    });
+
+    Route::get('{any?}', function() {
+        return view('guests.home');
+    })->where('any', '.*');
