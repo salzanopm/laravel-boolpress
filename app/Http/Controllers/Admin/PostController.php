@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
-use Illuminate\Support\Str;
+
 
 class PostController extends Controller
 {
@@ -49,7 +49,7 @@ class PostController extends Controller
         $new_post = new Post();
         $new_post->fill($form_data);
         
-        $new_post->slug = $this->getUniqueSlugFromTitle($form_data['title']);
+        $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
 
         $new_post->save();
 
@@ -106,7 +106,7 @@ class PostController extends Controller
         
         // Aggiorno lo slug soltanto se l'utente in fase di modifica cambia il titolo
         if($form_data['title'] != $post->title) {
-            $form_data['slug'] = $this->getUniqueSlugFromTitle($form_data['title']);
+            $form_data['slug'] = Post::getUniqueSlugFromTitle($form_data['title']);
         }
         
         $post->update($form_data);
@@ -135,21 +135,5 @@ class PostController extends Controller
         ];
     }
 
-    protected function getUniqueSlugFromTitle($title) {
-        // Controlliamo se esiste già un post con questo slug.
-        $slug = Str::slug($title);
-        $slug_base = $slug;
-        
-        $post_found = Post::where('slug', '=', $slug)->first();
-        $counter = 1;
-        while($post_found) {
-            // Se esiste, aggiungiamo -1 allo slug
-            // ricontrollo che non esista lo slug con -1, se esiste provo con -2
-            $slug = $slug_base . '-' . $counter;
-            $post_found = Post::where('slug', '=', $slug)->first();
-            $counter++;
-        }
-
-        return $slug;
-    }
+    
 }
