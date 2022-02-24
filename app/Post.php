@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
         'content',
         'slug'
     ];
+
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
+
     public static function getUniqueSlugFromTitle($title) {
         // Controlliamo se esiste già un post con questo slug.
         $slug = Str::slug($title);

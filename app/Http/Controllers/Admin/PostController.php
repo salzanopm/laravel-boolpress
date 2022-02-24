@@ -65,7 +65,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-
+        
         $data = [
             'post' => $post
         ];
