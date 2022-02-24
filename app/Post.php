@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
     protected $fillable = [
         'title',
         'content',
-        'slug'
+        'slug',
+        'category_id'
     ];
 
     public function category() {
