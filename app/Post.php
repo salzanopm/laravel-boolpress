@@ -13,9 +13,15 @@ use Illuminate\Support\Str;
         'category_id'
     ];
 
+    
     public function category() {
         return $this->belongsTo('App\Category');
     }
+
+    public function tags() {
+		return $this->belongsToMany('App\Tag');
+	}
+
 
     public static function getUniqueSlugFromTitle($title) {
         // Controlliamo se esiste già un post con questo slug.
