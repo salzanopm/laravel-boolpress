@@ -51,12 +51,16 @@ class PostController extends Controller
     {
         $form_data = $request->all();
         $request->validate($this->getValidationRules());
+
         $new_post = new Post();
         $new_post->fill($form_data);
         
         $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
 
         $new_post->save();
+
+        // Save tags relations
+        $new_post->tags()->sync($form_data['tags']);
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
