@@ -33,14 +33,13 @@
                 </select>    
             </div>
             <h4>Tags</h4>
-
             @foreach ($tags as $tag)
-            <div class="form-check">
-                <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id}}" id="tag-{{ $tag->id}}"> 
-                <label class="form-check-label" for="tag-{{ $tag->id}}"> 	
-                  {{ $tag->name }}	
-                </label>
-           </div>
+                <div class="form-check">
+                    <input {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}  class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id}}" id="tag-{{ $tag->id}}"> 
+                    <label class="form-check-label" for="tag-{{ $tag->id}}"> 	
+                    {{ $tag->name }}	
+                    </label>
+                </div>
             @endforeach
             
 
