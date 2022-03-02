@@ -95,9 +95,12 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::all();
+
         $data = [
             'post' => $post,
             'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -123,6 +126,15 @@ class PostController extends Controller
         }
         
         $post->update($form_data);
+        if(isset($form_data['tags'])) {
+            $post->tags()->sync($form_data['tags']);
+        } else {
+            // Se non esiste la chiave tags in form_data 
+            // significa che l'utente ha rimosso il check da tutti i tag
+            // quindi se questo post aveva dei tag collefgati li rimuovo
+            $post->tags()->sync([]);
+        }
+       
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
