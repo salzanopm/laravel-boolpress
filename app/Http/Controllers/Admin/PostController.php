@@ -60,7 +60,10 @@ class PostController extends Controller
         $new_post->save();
 
         // Save tags relations
-        $new_post->tags()->sync($form_data['tags']);
+        if(isset($form_data['tags'])) {
+            $new_post->tags()->sync($form_data['tags']);
+        }
+        
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
