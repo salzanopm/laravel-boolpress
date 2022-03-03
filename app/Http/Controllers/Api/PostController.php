@@ -13,7 +13,7 @@ class PostController extends Controller
 
         return response()->json([
         'success' => true,
-        'result' => $posts
+        'results' => $posts
         ]);
     }
 }
