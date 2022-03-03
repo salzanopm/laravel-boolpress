@@ -20,5 +20,6 @@
                     {{-- End Single post --}}
                 @endforeach
             </div>
+            {{ $posts->links()}}
     </section>
-@endsection
+@endsection 
