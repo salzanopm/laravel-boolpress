@@ -30,9 +30,9 @@
                     <li  class="page-item" :class="{'disabled' : currentPage == 1 }">
                         <a @click="getPosts(currentPage - 1)" class="page-link" href="#" aria-disabled="true">Previous</a>
                     </li>
-                    <!-- <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li> -->
+                    <li v-for="n in lastPage" :key="n" class="page-item" :class="{'active' : currentPage == n}">
+                        <a @click="getPosts(n)" class="page-link" href="#">{{ n }}</a>
+                    </li>
                     <li class="page-item" :class="{'disabled' : currentPage == lastPage }">
                         <a @click="getPosts(currentPage + 1)" class="page-link" href="#">Next</a>
                     </li>
@@ -49,7 +49,7 @@ export default {
         return {
             posts: [],
             currentPage: 1,
-            lastPage: false
+            lastPage: 0
         };
     },
     methods: {
