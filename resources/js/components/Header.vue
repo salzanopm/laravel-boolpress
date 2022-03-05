@@ -31,8 +31,8 @@ export default {
                 {
                     name: 'about',
                     label: 'About'
-                },
-
+                }
+               
             ]
         };
     }
