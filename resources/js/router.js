@@ -23,7 +23,7 @@ const router = new VueRouter({
         {
             path: "/blog",
             name: "blog",
-            component: About
+            component: Blog
         },
     ]
 });

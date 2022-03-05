@@ -2007,20 +2007,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Posts',
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      currentPage: 1,
+      lastPage: false
     };
   },
   methods: {
-    getPosts: function getPosts() {
+    getPosts: function getPosts(pageNumber) {
       var _this = this;
 
       // faremo la chiamata API per prenderci i post
-      axios.get('http://127.0.0.1:8000/api/posts').then(function (response) {
+      axios.get('http://127.0.0.1:8000/api/posts', {
+        params: {
+          page: pageNumber
+        }
+      }).then(function (response) {
         _this.posts = response.data.results.data;
+        _this.currentPage = response.data.results.current_page;
+        _this.lastPage = response.data.results.last_page;
       });
     },
     truncateText: function truncateText(text, maxCharsNumber) {
@@ -2034,7 +2056,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.getPosts();
+    this.getPosts(1);
   }
 });
 
@@ -2777,6 +2799,56 @@ var render = function () {
         }),
         0
       ),
+      _vm._v(" "),
+      _c("nav", [
+        _c("ul", { staticClass: "pagination" }, [
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: { disabled: _vm.currentPage == 1 },
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  attrs: { href: "#", "aria-disabled": "true" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.getPosts(_vm.currentPage - 1)
+                    },
+                  },
+                },
+                [_vm._v("Previous")]
+              ),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: { disabled: _vm.currentPage == _vm.lastPage },
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.getPosts(_vm.currentPage + 1)
+                    },
+                  },
+                },
+                [_vm._v("Next")]
+              ),
+            ]
+          ),
+        ]),
+      ]),
     ]),
   ])
 }
@@ -18742,7 +18814,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: "/blog",
     name: "blog",
-    component: _pages_About_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _pages_Blog_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

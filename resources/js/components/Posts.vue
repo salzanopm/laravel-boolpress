@@ -24,6 +24,20 @@
                 </div>
                 <!-- end single post card -->
             </div>
+            <nav>
+                <ul class="pagination">
+                    <!-- class disabled all li per disabilitare un link -->
+                    <li  class="page-item" :class="{'disabled' : currentPage == 1 }">
+                        <a @click="getPosts(currentPage - 1)" class="page-link" href="#" aria-disabled="true">Previous</a>
+                    </li>
+                    <!-- <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li> -->
+                    <li class="page-item" :class="{'disabled' : currentPage == lastPage }">
+                        <a @click="getPosts(currentPage + 1)" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 </template>
@@ -33,15 +47,23 @@ export default {
     name: 'Posts',
     data: function() {
         return {
-            posts: []
+            posts: [],
+            currentPage: 1,
+            lastPage: false
         };
     },
     methods: {
-        getPosts: function() {
+        getPosts: function(pageNumber) {
             // faremo la chiamata API per prenderci i post
-            axios.get('http://127.0.0.1:8000/api/posts')
+            axios.get('http://127.0.0.1:8000/api/posts', {
+                params: {
+                    page: pageNumber
+                }
+            })
             .then((response) => {
                this.posts = response.data.results.data;
+               this.currentPage = response.data.results.current_page;
+               this.lastPage = response.data.results.last_page;
             });
         },
         truncateText: function(text, maxCharsNumber) {
@@ -55,7 +77,7 @@ export default {
         }
     },
 	created: function() {
-		this.getPosts();
+		this.getPosts(1);
 	}
 }
 </script>
