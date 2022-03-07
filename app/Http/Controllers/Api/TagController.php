@@ -4,31 +4,34 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Post;
+use App\Tag;
 
-class PostController extends Controller
+class TagController extends Controller
 {
     public function index() {
-        $posts = Post::paginate(6);
+        $tags = Tag::all();
 
         return response()->json([
-        'success' => true,
-        'results' => $posts
+            'success' => true,
+            'results' => $tags
         ]);
+
     }
-    
-    public function show($slug) {
-        $post= Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
-        if($post) {
+
+    public function show($slug) {           // abbiamo bisogno di $slug
+        $tag = Tag::where('slug', '=', $slug)->with(['posts'])->first();
+
+        if($tag) {
             return response()->json([
                 'success' => true,
-                'results' => $post
+                'results' => $tag
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'results' => [] 
+                'results' => []
             ]);
         }
+        
     }
 }

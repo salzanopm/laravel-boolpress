@@ -38,8 +38,13 @@ export default {
                 },
                 {
                     name: 'latest-news',
-                    label: 'latest-news'
+                    label: 'Latest-news'
+                },
+                {
+                    name: 'tags-list',
+                    label: 'Tags'
                 }
+               
                
             ]
         };

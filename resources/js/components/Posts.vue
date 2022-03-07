@@ -16,10 +16,9 @@
                             <li class="list-group-item">A second item</li>
                             <li class="list-group-item">A third item</li>
                         </ul> -->
-                        <!-- <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div> -->
+                        <div class="card-body">
+                            <router-link :to="{ name: 'post-details', params: { slug: post.slug } }">Leggi l'articolo</router-link>
+                        </div>
                     </div>
                 </div>
                 <!-- end single post card -->
@@ -49,7 +48,7 @@ export default {
         return {
             posts: [],
             currentPage: 1,
-            lastPage: 0
+            lastPage: false
         };
     },
     methods: {
