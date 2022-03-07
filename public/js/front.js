@@ -2043,7 +2043,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // faremo la chiamata API per prenderci i post
-      axios.get('http://127.0.0.1:8000/api/posts', {
+      axios.get('/api/posts', {
         params: {
           page: pageNumber
         }
@@ -2243,7 +2243,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'PostDetails',
   data: function data() {
     return {
-      post: false
+      post: {}
     };
   },
   methods: {
@@ -3316,7 +3316,7 @@ var render = function () {
         ? _c("div", [_vm._v("Category: " + _vm._s(_vm.post.category.name))])
         : _vm._e(),
       _vm._v(" "),
-      _vm.post.tags.length > 0
+      _vm.post.tags && _vm.post.tags.length > 0
         ? _c(
             "div",
             _vm._l(_vm.post.tags, function (tag) {
@@ -3439,11 +3439,15 @@ var render = function () {
                 "router-link",
                 {
                   attrs: {
-                    to: { name: tag - _vm.details, params: { slug: tag.slug } },
+                    to: { name: "tag-details", params: { slug: tag.slug } },
                   },
                 },
                 [_vm._v(_vm._s(tag.name))]
               ),
+              _vm._v(" "),
+              _c("span", { staticClass: "badge bg-warning rounded-pill" }, [
+                _vm._v(_vm._s(tag.related_posts_number)),
+              ]),
             ],
             1
           )

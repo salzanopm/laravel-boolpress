@@ -43,9 +43,7 @@ export default {
                 {
                     name: 'tags-list',
                     label: 'Tags'
-                }
-               
-               
+                },               
             ]
         };
     }

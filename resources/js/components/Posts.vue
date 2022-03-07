@@ -54,7 +54,7 @@ export default {
     methods: {
         getPosts: function(pageNumber) {
             // faremo la chiamata API per prenderci i post
-            axios.get('http://127.0.0.1:8000/api/posts', {
+            axios.get('/api/posts', {
                 params: {
                     page: pageNumber
                 }

@@ -3,7 +3,7 @@
         <div class="container">
             <h1>{{ post.title }}</h1>
             <div v-if="post.category">Category: {{ post.category.name }}</div>
-            <div v-if="post.tags.length > 0">
+            <div v-if="post.tags && post.tags.length > 0">
                 <router-link 
                     v-for="tag in post.tags" 
                     :key="tag.id" 
@@ -24,8 +24,8 @@ export default {
     name: 'PostDetails',
     data: function() {
         return {
-            post: false
-        }
+            post: {}
+        };
     },
     methods: {
         getPost() {
