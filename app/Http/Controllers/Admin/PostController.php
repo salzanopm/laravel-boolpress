@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     /**
@@ -50,13 +53,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $form_data = $request->all();
+        
         $request->validate($this->getValidationRules());
 
         $new_post = new Post();
         $new_post->fill($form_data);
         
         $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
-
+        $img_path = Storage::put('post_covers', $form_data['image']);
+        dd($img_path);
+        // $new_post->cover = $img_path;
         $new_post->save();
 
         // Save tags relations
