@@ -64,7 +64,11 @@
                 <label for="image" class="form-label">Image</label>
                 <input type="file" id="image" name="image">
             </div>
-
+ 
+            @error('image')
+                <div class="alert alert-danger">Immagine troppo grande</div>
+            @enderror
+            
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
     </section>
