@@ -15,6 +15,10 @@
               nessuno
             @endforelse
         </div>
+        {{-- stampo l'immagine caricata --}}
+        @if ($post->cover)
+        <img src="{{ asset('storage/' . $post->cover)}}" alt="{{ $post->title }}">
+        @endif
         <p>{{ $post->content }}</p>
 
         <div>

@@ -60,9 +60,14 @@ class PostController extends Controller
         $new_post->fill($form_data);
         
         $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
-        $img_path = Storage::put('post_covers', $form_data['image']);
-        dd($img_path);
-        // $new_post->cover = $img_path;
+        // gestione immagine del post 
+        if(isset($form_data['image'])) {
+            // 1 salviamo dentro storage
+            $img_path = Storage::put('post_covers', $form_data['image']);
+            // 2 salvare il path al file nella colonna del cover del post
+            $new_post->cover = $img_path;
+        }
+        
         $new_post->save();
 
         // Save tags relations
